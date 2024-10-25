@@ -49,6 +49,30 @@ return jwt.sign({id},process.env.TOKEN_SECREAT,{
 });
 };
 
+exports.getbyid = async(req,res)=>{
+    try {
+        //console.log(req.id);
+        const isuserfound = await model.findById(req.id);
+        if(isuserfound!=null){
+            res.status(200).json({
+                data:isuserfound,
+                message:"User data fetched Sucessfully"
+            });
+        }
+        else{
+            res.status(200).json({
+                data:null,
+                message:"No record Found"
+            })
+        }
+    } catch (error) {
+        res.status(401).json({
+            data:null,
+            message:"Failed to fetch user record"
+        })
+    }
+}
+
 exports.login = async(req,res)=>{
     try {
         const isuserfound = await model.findOne({email:req.body.email});
