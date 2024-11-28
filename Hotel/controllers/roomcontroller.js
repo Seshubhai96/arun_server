@@ -1,4 +1,4 @@
-const roomschema = require('../models/roomsmodel');
+const roomschema = require('../Model/roomsmodel');
 const model = roomschema.roomodel;
 
 exports.createroom = async (req, res) => {

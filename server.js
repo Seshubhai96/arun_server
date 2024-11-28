@@ -2,8 +2,8 @@ require('dotenv').config()
 const express = require('express');
 const server = express();
 const mongoose = require('mongoose');
-const authroute = require('./routes/authroute');
-const roomroute = require('./routes/roomroutes');
+const authroute = require('./Auth/routes/authroute');
+const roomroute = require('./Hotel/routes/roomroutes');
 
 main().catch((e)=>console.log(e));
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { usermodel } = require('./usermodel');
+const { usermodel } = require('../../Auth/Models/usermodel');
 const {Schema} = mongoose;
 const roomodel = new Schema({
     roomnumber:{type:String,required:true,message:"{Value} can't be empty",unique:true},
