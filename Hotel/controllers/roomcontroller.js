@@ -28,6 +28,33 @@ exports.createroom = async (req, res) => {
     }
 }
 
+exports.updateroom = async (req, res) => {
+    try {
+        const room = new model(req.body);
+        //console.log(room);
+        const isroomalreadyexits = await model.findById({_id:room.id});
+        if(isroomalreadyexits){
+            await model.updateOne(room);
+            res.status(201).json({
+                data:isroomalreadyexits,
+                message:"Room details Updated sucessfully"
+            });
+        }
+        else{
+            res.status(201).json({
+                data:null,
+                message:"No Record Found!!"
+            }); 
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            data: null,
+            message: "Failed to create room"
+        })
+    }
+}
+
 exports.getroombyid = async (req, res) => {
     try {
         const isroomfound = await model.findById(req.body.id);

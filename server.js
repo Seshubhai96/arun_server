@@ -12,21 +12,8 @@ async function main() {
     await mongoose.connect(process.env.Connect);
     console.log("db connected sucessfully");
 } 
-server.use(express.json());
-// const corsOpts = {
-//     origin: '*',
-  
-//     methods: [
-//       'GET',
-//       'POST',
-//     ],
-  
-//     allowedHeaders: [
-//       'Content-Type',
-//     ],
-//   };
-  
-// server.use(cors());
+server.use(cors('*'))
+server.use(express.json()); 
 server.use(process.env.BASE_URL+"auth",authroute.router);
 server.use(process.env.BASE_URL+"rooms",roomroute.routes);
 server.listen(process.env.Port,()=>{
