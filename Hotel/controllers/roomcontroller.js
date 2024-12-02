@@ -3,22 +3,24 @@ const model = roomschema.roomodel;
 
 exports.createroom = async (req, res) => {
     try {
-        const room = new model(req.body);
-        //console.log(room.roomnumber);
-        const isroomalreadyexits = await model.findOne({roomnumber: room.roomnumber })
-        if (isroomalreadyexits != null) {
-            res.status(200).json({
-                data: isroomalreadyexits,
-                message: "Room Already created"
-            })
-        } else {
-            room.createdby = req.id;
-            await room.save();
-            res.status(200).json({
-                data: null,
-                message: "Room created sucessfully"
-            })
-        }
+        //console.log(req.body["_id"]);
+            const room = new model(req.body);
+            console.log(room.roomnumber);
+            const isroomalreadyexits = await model.findOne({roomnumber: room.roomnumber})
+            if (isroomalreadyexits != null) {
+                res.status(200).json({
+                    data: isroomalreadyexits,
+                    message: "Room Already created"
+                })
+            } else {
+                room.createdby = req.id;
+                await room.save();
+                res.status(200).json({
+                    data: null,
+                    message: "Room created sucessfully"
+                })
+            }
+        
     } catch (error) {
         console.log(error);
         res.status(400).json({
@@ -36,7 +38,7 @@ exports.updateroom = async (req, res) => {
         if(isroomalreadyexits){
             await model.updateOne(room);
             res.status(201).json({
-                data:isroomalreadyexits,
+                data:room,
                 message:"Room details Updated sucessfully"
             });
         }
