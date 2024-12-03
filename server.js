@@ -5,6 +5,7 @@ const server = express();
 const mongoose = require('mongoose');
 const authroute = require('./Auth/routes/authroute');
 const roomroute = require('./Hotel/routes/roomroutes');
+const roleroute = require('./Auth/routes/roleroute');
 
 main().catch((e)=>console.log(e));
 
@@ -16,6 +17,7 @@ server.use(cors('*'))
 server.use(express.json()); 
 server.use(process.env.BASE_URL+"auth",authroute.router);
 server.use(process.env.BASE_URL+"rooms",roomroute.routes);
+server.use(process.env.BASE_URL+"role",roleroute.router);
 server.listen(process.env.Port,()=>{
     console.log('server running');
 });

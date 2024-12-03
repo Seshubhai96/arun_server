@@ -4,9 +4,11 @@ const model = roomschema.roomodel;
 exports.createroom = async (req, res) => {
     try {
         //console.log(req.body["_id"]);
-            const room = new model(req.body);
-            console.log(room.roomnumber);
-            const isroomalreadyexits = await model.findOne({roomnumber: room.roomnumber})
+        const roomData = req.body;
+        const roomnumber = String(roomData.roomnumber).padStart(2, "0");
+            const room = new model({...roomData,roomnumber});
+            //console.log(room.roomnumber);
+            const isroomalreadyexits = await model.findOne({roomnumber: roomnumber})
             if (isroomalreadyexits != null) {
                 res.status(200).json({
                     data: isroomalreadyexits,
@@ -16,7 +18,7 @@ exports.createroom = async (req, res) => {
                 room.createdby = req.id;
                 await room.save();
                 res.status(200).json({
-                    data: null,
+                    data: room,
                     message: "Room created sucessfully"
                 })
             }
@@ -32,18 +34,22 @@ exports.createroom = async (req, res) => {
 
 exports.updateroom = async (req, res) => {
     try {
-        const room = new model(req.body);
-        //console.log(room);
-        const isroomalreadyexits = await model.findById({_id:room.id});
+        //const room = new model(req.body);
+        const roomData = req.body; // Get room data from request body
+        const roomId = roomData._id;
+        //console.log(roomData);
+        const isroomalreadyexits = await model.findById({_id:roomId});
         if(isroomalreadyexits){
-            await model.updateOne(room);
+            const updateData = { ...roomData };
+            delete updateData._id;
+            await model.updateOne({ _id: roomId }, { $set: updateData });
             res.status(201).json({
-                data:room,
+                data:roomData,
                 message:"Room details Updated sucessfully"
             });
         }
         else{
-            res.status(201).json({
+            res.status(204).json({
                 data:null,
                 message:"No Record Found!!"
             }); 
