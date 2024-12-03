@@ -14,7 +14,9 @@ async function main() {
     console.log("db connected sucessfully");
 } 
 server.use(cors('*'))
-server.use(express.json()); 
+//server.use(express.json()); 
+server.use(express.json({ limit: '50mb' })); // Set JSON payload limit
+server.use(express.urlencoded({ limit: '50mb', extended: true }));
 server.use(process.env.BASE_URL+"auth",authroute.router);
 server.use(process.env.BASE_URL+"rooms",roomroute.routes);
 server.use(process.env.BASE_URL+"role",roleroute.router);

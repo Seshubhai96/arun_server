@@ -1,11 +1,12 @@
 const mongose = require('mongoose');
-const image = require('./userimagmodel');
+// const image = require('./userimagmodel');
 const {Schema} = mongose;
 const usermodel = new Schema({
     fullname: { type: String, required: true,message:"{Value} can't be empty"},
     role : {type:String,required:true,message:"{Value} can't be empty"},
     type : {type:String,required:true,message:"{Value} can't be empty"},
-    imageurl : {type:image.model,default:null},
+    image:{type:String,required:true,message:"{Value} can't be empty"},
+    //imageurl : {type:image.model,default:null},
     gender:{type:String,default: null},
     email: {
         type: String,

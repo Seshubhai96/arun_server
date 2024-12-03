@@ -7,4 +7,4 @@ const iauth = require('../../middleware/jwtvalidation');
  .post('/signup',route.register)
  .post('/getbyid',iauth,route.getbyid)
  .post('/list',iauth,route.getall)
- .post('/login',route.login);
+ .post('/login',route.login).post("/update",route.updateuser);
