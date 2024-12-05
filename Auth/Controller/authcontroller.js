@@ -83,7 +83,7 @@ return jwt.sign({id},process.env.TOKEN_SECREAT,{
 exports.getbyid = async(req,res)=>{
     //console.log(req.body.id);
     try {
-        console.log(req.body.id);
+        //console.log(req.body.id);
         const userid = req.body.id===undefined||req.body.id===null?req.id:req.body.id;
         const isuserfound = await model.findById(userid);
         if(isuserfound!=null){
