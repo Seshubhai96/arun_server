@@ -3,6 +3,8 @@ const user = require('../Models/usermodel');
 const model = user.usermodel;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const cloudnary = require('../../middleware/cloudnaryvalidation');
+const upload = require('../../middleware/multer');
 
 exports.register = async (req, res) => {
     try {
@@ -79,6 +81,10 @@ return jwt.sign({id},process.env.TOKEN_SECREAT,{
 
 });
 };
+
+exports.updateimage = async(req,res)=>{
+
+}
 
 exports.getbyid = async(req,res)=>{
     //console.log(req.body.id);
